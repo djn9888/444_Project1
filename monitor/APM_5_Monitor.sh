@@ -1,17 +1,25 @@
 # /usr/bin/bash
 
-echo "%CPU    %MEM">log/apm5Monit.log
-echo "%CPU    %MEM"
+echo "%CPU    %MEM    Time">log/apm5Monit.log
+echo "%CPU,%MEM,Time">log/apm5Monit.csv
+
 while [ true ]
 do
    x=""
-   sleep 1
-   for pid in $( ps aux | grep -v grep | grep APM5 | awk '{print $3,$4}')
+   y=""
+   sleep 5
+   for pid in $(ps aux | grep -v grep | grep APM5 | awk '{print $3,$4}')
    do
-     x="$x$pid    "
+     x="$x$pid     "
+     y="$y$pid,"
+
 
    done
-   echo "$x"
+   x="$x$(date +'%m/%d/%Y %H:%M:%S')"
+   y="$y$(date +'%m/%d/%Y %H:%M:%S')"
+
    echo "$x">>log/apm5Monit.log
+   echo "$y">>log/apm5Monit.csv
+
 
 done
