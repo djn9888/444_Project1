@@ -7,7 +7,8 @@ times=5
 n=(1 2 3 4 5 6)
 while  [ true ]
 do
-   sleep 5
+   sleep 4.5
+
    y="$times,"
    for apm in "${n[@]}"
    do   

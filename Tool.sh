@@ -25,13 +25,14 @@ echo 'All APMs running'
 
 
 #run System Monitor srpits
-n=1
-while [ $n -le 6 ]
-do
-nohup ./monitor/APM_${n}_Monitor.sh &>/dev/null &
- n=$(($n + 1))
-done
-echo 'All Monitors running'
+#n=1
+#while [ $n -le 6 ]
+#do
+#nohup ./monitor/APM_${n}_Monitor.sh &>/dev/null &
+# n=$(($n + 1))
+#done
+nohup ./monitor/APM_Monitor.sh &>/dev/null &
+echo 'Monitor running'
 
 
 #**testing, remove for PROD***
