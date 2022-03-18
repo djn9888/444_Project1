@@ -8,6 +8,11 @@ function finish {
 }
 trap finish EXIT
 
+a1=20
+if [ $# -gt 0 ]
+  then
+  a1=$1
+fi
 
 n=1
 while [ $n -le 6 ]
@@ -19,7 +24,7 @@ echo 'All APMs running'
 
 
 
-#run monitor srpits
+#run System Monitor srpits
 n=1
 while [ $n -le 6 ]
 do
@@ -29,10 +34,10 @@ done
 echo 'All Monitors running'
 
 
-#**testing, remove fro PROD***
+#**testing, remove for PROD***
 #loop for how ever many seconds specified in while 
 x=1
-while [ $x -le 20 ]
+while [ $x -le $a1 ]
 do
 
 echo $x
