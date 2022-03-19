@@ -1,6 +1,6 @@
 # /usr/bin/bash
 
-echo "Time,APM1%CPU,APM1%MEM,APM2%CPU,APM2%MEM,APM3%CPU,APM3%MEM,APM4%CPU,APM4%MEM,APM5%CPU,APM5%MEM,APM6%CPU,APM6%MEM,">log/apm1Monit.csv
+echo "Time,APM1%CPU,APM1%MEM,APM2%CPU,APM2%MEM,APM3%CPU,APM3%MEM,APM4%CPU,APM4%MEM,APM5%CPU,APM5%MEM,APM6%CPU,APM6%MEM,">../log/apm1Monit.csv
 
 
 times=5
@@ -22,7 +22,7 @@ do
    
 
    times=$(($times+5))
-   echo "$y">>log/apm1Monit.csv
+   echo "$y">>../log/apm1Monit.csv
 
 
 done
