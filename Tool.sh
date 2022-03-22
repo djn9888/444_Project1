@@ -1,12 +1,22 @@
 #! /usr/bin/bash
 
 
-finish(){
+cleanup(){
 
-  ./killAllApm.sh
+  for pid in $(ps aux | grep -v grep | grep APM | awk '{print $2}' )
+  do 
+    kill $pid
+    echo "$pid was killed"
+ done
+
+ for pid in $(ps aux | grep -v grep | grep -n ifstat | awk '{print $2}' )
+ do 
+   kill $pid
+   echo "$pid was killed"
+ done
 
 }
-trap finish EXIT
+trap cleanup EXIT
 
 startAPMs(){
    n=1
@@ -22,11 +32,11 @@ writeSystemMetrics() {
 
    time=$1
 
-   output="$time"
+   #output="$time"
 
    # network statistics section (-10 for now to remind us to fix it)
-   output=$(ifstat ens192 -t 1 | awk '{if(NR==4) print $3, ",", $5}')
 
+   net=$(ifstat ens192 -t 1 | awk '{if(NR==4) print $3,",",$5}')
    # hard disk section
    # measure hard disk writes in kB/section to the primary hard drive
    # kB_wrtn/s is the fourth column
@@ -35,7 +45,7 @@ writeSystemMetrics() {
    # measure hard disk utilization
    space=$(df -m | grep /dev/mapper/centos-root | awk '{print $4}')
 
-   output="$output$writes,$space,"
+   output="$time,$net,$writes,$space,"
 
    echo "$output">>./log/system_metrics.csv
 
@@ -84,6 +94,7 @@ echo "Time,APM1%CPU,APM1%MEM,APM2%CPU,APM2%MEM,APM3%CPU,APM3%MEM,APM4%CPU,APM4%M
 ####### IFSTAT SECTION ######
 #set ifstat update interval to every second.
 #default is 60 seconds
+
 ifstat -d 1
 
 ###### SYSTEM METRICS ######
