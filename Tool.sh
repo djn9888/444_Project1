@@ -25,7 +25,7 @@ writeSystemMetrics() {
    output="$time"
 
    # network statistics section (-10 for now to remind us to fix it)
-   output="$output,0,0,"
+   output=$(ifstat ens192 -t 1 | awk '{if(NR==4) print $3, ",", $5}')
 
    # hard disk section
    # measure hard disk writes in kB/section to the primary hard drive
